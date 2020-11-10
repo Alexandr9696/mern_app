@@ -5,6 +5,8 @@ const authRoutes = require('./routes/authRoutes')
 
 const app = express()
 
+// для распознавания входящего объекта запроса как объекта JSON
+app.use(express.json({extended: true}))
 
 // маршрутизация
 app.use('/api/auth', authRoutes)

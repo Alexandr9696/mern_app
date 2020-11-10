@@ -1,5 +1,5 @@
 const {Router} = require('express')
-const bycrypt = require('bcryptjs')
+const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const {check, validationResult} = require('express-validator')
 const User = require('./../models/User')
@@ -17,7 +17,6 @@ router.post(
   ],
   async (req, res) => {
     try {
-
       const errors = validationResult(req)
 
       if (!errors.isEmpty()) {
@@ -35,7 +34,7 @@ router.post(
         return res.status(400).json({message: 'Такой пользователь уже существует'})
       }
 
-      const hashedPassword = await bycrypt.hash(password, 12)
+      const hashedPassword = await bcrypt.hash(password, 12)
       const user = new User({email, password: hashedPassword})
       await user.save()
 
@@ -73,7 +72,7 @@ router.post(
 
       const isMatch = await bcrypt.compare(password, user.password)
 
-      if (isMatch) {
+      if (!isMatch) {
         return res.status(400).json({message: `Неверный пароль, попробуйте снова`})
       }
 
