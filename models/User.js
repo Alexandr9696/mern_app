@@ -1,7 +1,7 @@
 const {Schema, model} = require('mongoose')
 
 
-const shema = new Schema({
+const schema = new Schema({
   email: {
     type: String,
     required: true,
@@ -19,4 +19,4 @@ const shema = new Schema({
   ]
 })
 
-module.exports = model('User', shema)
+module.exports = model('User', schema)
